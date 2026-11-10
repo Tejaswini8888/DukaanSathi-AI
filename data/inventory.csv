@@ -1,0 +1,9 @@
+name,category,quantity,unit,price,minimum_stock
+Rice,Groceries,50,kg,60,10
+Sugar,Groceries,30,kg,45,5
+Sunflower Oil,Oil,25,litre,140,5
+Wheat Flour,Groceries,20,kg,40,5
+Toor Dal,Pulses,15,kg,130,5
+Milk,Dairy,40,litre,30,10
+Tea Powder,Beverages,12,kg,250,3
+Salt,Groceries,25,kg,25,5
