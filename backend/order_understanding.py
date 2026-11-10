@@ -1,38 +1,78 @@
 
 import re
+import unicodedata
 
 # ==========================================
-# PRODUCT NAMES AND COMMON SPEECH VARIATIONS
+# PRODUCT NAMES AND SPEECH VARIATIONS
 # ==========================================
 
 PRODUCT_ALIASES = {
-    "rice": ["rice", "raice", "రైస్", "రైసు"],
-    "sugar": ["sugar", "షుగర్"],
+    "rice": [
+        "rice", "raice", "రైస్", "రైసు", "బియ్యం", "బియ్యము"
+    ],
+    "sugar": [
+        "sugar", "షుగర్", "చక్కెర"
+    ],
     "sunflower oil": [
-        "sunflower oil",
-        "sun flower oil",
-        "sunflour oil",
-        "సన్ ఫ్లవర్ ఆయిల్",
-        "సన్ఫ్లవర్ ఆయిల్",
+        "sunflower oil", "sun flower oil", "sunflour oil",
+        "సన్ ఫ్లవర్ ఆయిల్", "సన్ఫ్లవర్ ఆయిల్",
         "సన్‌ఫ్లవర్ ఆయిల్"
     ],
-    "milk": ["milk", "మిల్క్", "పాలు"],
+    "milk": [
+        "milk", "మిల్క్", "పాలు"
+    ],
+    "wheat flour": [
+        "wheat flour", "wheat powder", "గోధుమ పిండి",
+        "గోధుమపిండి"
+    ],
+    "toor dal": [
+        "toor dal", "toor dhal", "తూర్ దాల్",
+        "కందిపప్పు"
+    ],
+    "tea powder": [
+        "tea powder", "tea", "టీ పొడి", "టీ పౌడర్"
+    ],
+    "salt": [
+        "salt", "సాల్ట్", "ఉప్పు"
+    ],
     "groundnut oil": [
-        "groundnut oil",
-        "ground nut oil",
-        "వేరుశెనగ నూనె"
+        "groundnut oil", "ground nut oil",
+        "వేరుశెనగ నూనె", "గ్రౌండ్నట్ ఆయిల్"
     ]
 }
 
+PRODUCT_DISPLAY_NAMES = {
+    "rice": "Rice",
+    "sugar": "Sugar",
+    "sunflower oil": "Sunflower Oil",
+    "milk": "Milk",
+    "wheat flour": "Wheat Flour",
+    "toor dal": "Toor Dal",
+    "tea powder": "Tea Powder",
+    "salt": "Salt",
+    "groundnut oil": "Groundnut Oil"
+}
+
 # ==========================================
-# SUPPORTED QUANTITY UNITS
+# UNIT ALIASES
 # ==========================================
 
 UNIT_ALIASES = {
-    "kg": ["kg", "kilo", "kilos", "kilogram", "kilograms", "కిలో", "కిలోస్"],
-    "litre": ["litre", "litres", "liter", "liters", "లీటర్", "లీటర్లు"],
-    "packet": ["packet", "packets", "ప్యాకెట్", "ప్యాకెట్లు"],
-    "piece": ["piece", "pieces", "పీస్", "పీసులు"]
+    "kg": [
+        "kg", "kgs", "kilo", "kilos",
+        "kilogram", "kilograms",
+        "కిలో", "కిలోలు", "కిలోల", "కిలోగ్రాములు"
+    ],
+    "litre": [
+        "litre", "litres", "liter", "liters",
+        "l", "లీటర్", "లీటర్లు", "లీటర్ల"
+    ],
+    "packet": [
+        "packet", "packets", "ప్యాకెట్", "ప్యాకెట్లు"
+    ],
+    "piece": [
+        "piece", "pieces", "పీస్", "పీసులు"
+    ]
 }
 
 # ==========================================
@@ -40,31 +80,28 @@ UNIT_ALIASES = {
 # ==========================================
 
 NUMBER_WORDS = {
-    "one": 1,
-    "two": 2,
-    "three": 3,
-    "four": 4,
-    "five": 5,
-    "six": 6,
-    "seven": 7,
-    "eight": 8,
-    "nine": 9,
+    "one": 1, "two": 2, "three": 3,
+    "four": 4, "five": 5, "six": 6,
+    "seven": 7, "eight": 8, "nine": 9,
     "ten": 10,
 
-    # Telugu speech-recognition variations
-    "వన్": 1,
-    "టూ": 2,
-    "త్రీ": 3,
-    "ఫోర్": 4,
-    "ఫైవ్": 5,
-    "సిక్స్": 6,
-    "సెవెన్": 7,
-    "ఎయిట్": 8,
-    "నైన్": 9,
-    "టెన్": 10
+    "వన్": 1, "టూ": 2, "త్రీ": 3,
+    "ఫోర్": 4, "ఫైవ్": 5, "సిక్స్": 6,
+    "సెవెన్": 7, "ఎయిట్": 8,
+    "నైన్": 9, "టెన్": 10,
+
+    "ఒక": 1, "ఒకటి": 1,
+    "రెండు": 2, "మూడు": 3,
+    "నాలుగు": 4, "ఐదు": 5,
+    "ఆరు": 6, "ఏడు": 7,
+    "ఎనిమిది": 8, "తొమ్మిది": 9,
+    "పది": 10
 }
 
-# Common Telugu names converted to English
+# ==========================================
+# CUSTOMER NAMES
+# ==========================================
+
 TELUGU_NAMES = {
     "రవి": "Ravi",
     "రమేష్": "Ramesh",
@@ -73,7 +110,10 @@ TELUGU_NAMES = {
     "రాహుల్": "Rahul",
     "ప్రియా": "Priya",
     "సాయి": "Sai",
-    "కిరణ్": "Kiran"
+    "కిరణ్": "Kiran",
+    "లక్ష్మి": "Lakshmi",
+    "రమ్య": "Ramya",
+    "శ్రీను": "Srinu"
 }
 
 # ==========================================
@@ -81,35 +121,32 @@ TELUGU_NAMES = {
 # ==========================================
 
 def normalize_text(text):
-    """Convert text into searchable lowercase format."""
+    text = unicodedata.normalize("NFC", str(text).lower().strip())
 
-    text = str(text).lower().strip()
-    text = text.replace("‌", "")
+    text = text.replace("\u200c", "").replace("\u200d", "")
+    text = text.replace("\u200b", "").replace("‌", "")
+
     text = re.sub(r"[.,!?;:]", " ", text)
+    text = re.sub(r"\s+", " ", text)
 
-    return re.sub(r"\s+", " ", text).strip()
+    return text.strip()
 
 
 # ==========================================
-# CUSTOMER NAME EXTRACTION
+# CUSTOMER EXTRACTION
 # ==========================================
 
 def extract_customer(transcript):
-    """Extract customer name from English or Telugu speech."""
 
     text = normalize_text(transcript)
 
     patterns = [
-        # English: Ravi ki, Ravi for
-        r"\b([a-zA-Z]+)\s*(?:ki|kee|k)\b",
-        r"\b([a-zA-Z]+)\s+(?:for|to)\b",
-
-        # English: customer name is Ravi
-        r"\bcustomer name is\s+([a-zA-Z]+)\b",
-        r"\bname is\s+([a-zA-Z]+)\b",
-
-        # Telugu: రవికి or రవి కి
-        r"([ఀ-౿]+?)\s*కి(?:\s|$)",
+        r"\bcustomer name is\s+([a-z]+)\b",
+        r"\bname is\s+([a-z]+)\b",
+        r"\b([a-z]+)\s+(?:ki|kee|k)\b",
+        r"\b([a-z]+)\s+(?:needs|wants|requires)\b",
+        r"\b([a-z]+)\s+(?:for|to)\b",
+        r"([ఀ-౿]+)\s*కి"
     ]
 
     for pattern in patterns:
@@ -121,7 +158,7 @@ def extract_customer(transcript):
             if name in TELUGU_NAMES:
                 return TELUGU_NAMES[name]
 
-            if re.fullmatch(r"[a-zA-Z]+", name):
+            if re.fullmatch(r"[a-z]+", name):
                 return name.capitalize()
 
             return name
@@ -134,7 +171,6 @@ def extract_customer(transcript):
 # ==========================================
 
 def extract_number(value):
-    """Convert digits and spoken number words to numbers."""
 
     value = normalize_text(value)
 
@@ -148,25 +184,14 @@ def extract_number(value):
 # PRODUCT AND QUANTITY EXTRACTION
 # ==========================================
 
-
 def extract_items(transcript):
-    """Extract products, quantities and units from English and Telugu speech."""
 
     text = normalize_text(transcript)
     extracted_items = []
 
-    product_display_names = {
-        "rice": "Rice",
-        "sugar": "Sugar",
-        "sunflower oil": "Sunflower Oil",
-        "milk": "Milk",
-        "groundnut oil": "Groundnut Oil"
-    }
-
-    # Build flexible patterns from the supported aliases
     number_pattern = "|".join(
         re.escape(word)
-        for word in sorted(NUMBER_WORDS.keys(), key=len, reverse=True)
+        for word in sorted(NUMBER_WORDS, key=len, reverse=True)
     )
 
     number_pattern = rf"(?:\d+(?:\.\d+)?|{number_pattern})"
@@ -187,22 +212,24 @@ def extract_items(transcript):
         for alias in sorted(aliases, key=len, reverse=True):
 
             normalized_alias = normalize_text(alias)
-
-            # Find product in the transcript
             product_position = text.find(normalized_alias)
 
             if product_position == -1:
                 continue
 
-            # Check quantity and unit immediately before product
-            preceding_text = text[:product_position]
+            preceding_text = text[:product_position].strip()
 
             pattern = (
                 rf"({number_pattern})\s+"
-                rf"({unit_pattern})\s*$"
+                rf"({unit_pattern})"
+                rf"(?:\s+of)?\s*$"
             )
 
-            match = re.search(pattern, preceding_text, re.IGNORECASE)
+            match = re.search(
+                pattern,
+                preceding_text,
+                re.IGNORECASE
+            )
 
             if not match:
                 continue
@@ -214,21 +241,23 @@ def extract_items(transcript):
 
             spoken_unit = match.group(2).lower()
 
-            # Identify canonical unit
-            unit = None
+            canonical_unit = None
 
             for canonical, unit_aliases in UNIT_ALIASES.items():
-                if spoken_unit in [x.lower() for x in unit_aliases]:
-                    unit = canonical
+
+                if spoken_unit in [
+                    normalize_text(x) for x in unit_aliases
+                ]:
+                    canonical_unit = canonical
                     break
 
-            if not unit:
+            if not canonical_unit:
                 continue
 
             extracted_items.append({
-                "product": product_display_names[product],
+                "product": PRODUCT_DISPLAY_NAMES[product],
                 "quantity": quantity,
-                "unit": unit
+                "unit": canonical_unit
             })
 
             break
@@ -236,16 +265,11 @@ def extract_items(transcript):
     return extracted_items
 
 
-
 # ==========================================
 # MAIN ORDER UNDERSTANDING FUNCTION
 # ==========================================
 
 def understand_order(transcripts):
-    """
-    Accept Gnani multilingual transcripts
-    and extract customer and product details.
-    """
 
     if isinstance(transcripts, dict):
         combined_text = " ".join(

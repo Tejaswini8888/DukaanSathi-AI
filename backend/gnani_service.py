@@ -1,19 +1,23 @@
+
 import os
 import requests
-
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load .env from the project root
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 GNANI_API_KEY = os.getenv("GNANI_API_KEY_ID")
-
 GNANI_STT_URL = "https://api.vachana.ai/stt/v3"
 
 
 def transcribe_audio(audio_file):
 
     if not GNANI_API_KEY:
-        raise ValueError("Gnani API key is missing")
+        raise ValueError(
+            "Gnani API key is missing. Check GNANI_API_KEY_ID in .env"
+        )
 
     headers = {
         "X-API-Key-ID": GNANI_API_KEY
@@ -28,8 +32,8 @@ def transcribe_audio(audio_file):
     }
 
     data = {
-    "language_code": "indic-auto",
-    "multi_lang_codes": "te-IN,en-IN"
+        "language_code": "indic-auto",
+        "multi_lang_codes": "te-IN,en-IN"
     }
 
     try:
@@ -62,4 +66,6 @@ def transcribe_audio(audio_file):
         )
 
     except requests.RequestException as error:
-        raise RuntimeError(f"Gnani API request failed: {error}")
+        raise RuntimeError(
+            f"Gnani API request failed: {error}"
+        )
